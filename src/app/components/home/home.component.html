@@ -5,4 +5,13 @@
 
   <app-dashboard-card [totalConfirmed]='totalConfirmed' [totalActive]='totalActive' 
   [totalDeaths]='totalDeaths' [totalRecovered]='totalRecovered'></app-dashboard-card>
+<hr>
+<h3>
+  Country-wise data
+</h3>
+<div class="item">
+  <canvas width="400" height="100" baseChart chartType="doughnut" [data]="doughnutChartData"
+    [labels]="doughnutChartLabels" [options]="chartOptions" [legend]="false">
+  </canvas>
+</div>
 </div>
