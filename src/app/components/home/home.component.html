@@ -9,15 +9,45 @@
   <h3>
     Country-wise data
   </h3>
-  <div class="item">
-    <canvas *ngIf="loaded" width="400" height="100" baseChart chartType="doughnut" [data]="doughnutChartData"
+  <hr>
+  <div class="ui form">
+    <div class="inline fields">
+      <label for="fruit">Select case type:</label>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" #confirmed id="confirmed" value="confirmed" (click)='updateChartType(confirmed)' name="caseType" checked="" tabindex="0" class="hidden">
+          <label for="confirmed">Confirmed</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" #active id="active" value="active" (click)='updateChartType(active)' name="caseType" tabindex="0" class="hidden">
+          <label for="active">Active</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" #recovered id="recovered" value="recovered" (click)='updateChartType(recovered)' name="caseType" tabindex="0" class="hidden">
+          <label for="recovered">Recovered</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" #deaths id="deaths" value="deaths" (click)='updateChartType(deaths)' name="caseType" tabindex="0" class="hidden">
+          <label for="deaths">Deaths</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <canvas *ngIf="loaded" width="300" height="300" baseChart chartType="doughnut" [data]="doughnutChartData"
       [labels]="doughnutChartLabels" [options]="chartOptions" [legend]="false">
     </canvas>
   </div>
   <hr>
-  <div>
-    <div style="display: block">
-      <canvas *ngIf="loaded" baseChart [datasets]="barChartData" [labels]="doughnutChartLabels"
+    <div class="col">
+      <canvas *ngIf="loaded" width="400" height="400" baseChart [datasets]="barChartData" [labels]="barChartLabels"
         [options]="barChartOptions" [legend]="false" [chartType]="barChartType"></canvas>
     </div>
   </div>

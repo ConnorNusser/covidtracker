@@ -15,13 +15,16 @@ export class HomeComponent implements OnInit {
   globalData : GlobalDataSummary[];
   loaded = false;
   chartOptions = {
-    responsive: true
+    responsive: true,
+    maintainAspectRatio: false
   };
   
   public doughnutChartLabels: string[] = [];
+  public barChartLabels: string[] = [];
   public doughnutChartData: number[] = [];
   public barChartOptions = {
     scaleShowVerticalLines: false,
+    maintainAspectRatio: false,
     responsive: true
   };
   public barChartType = 'bar';
@@ -42,16 +45,56 @@ export class HomeComponent implements OnInit {
               this.totalConfirmed +=  countryData.confirmed;
               this.totalDeaths += countryData.deaths;
               this.totalRecovered += countryData.recovered;
-
-              this.doughnutChartData.push(countryData.confirmed);
-              this.doughnutChartLabels.push(countryData.country);
-              this.barChartData[0].data.push(countryData.confirmed);
             }
           })
+          this.initializeChart('confirmed');
           this.loaded = true;
         }
       }
     )
+  }
+
+  initializeChart(caseType: String) {
+    this.globalData.forEach(countryData => {
+      if(caseType == 'confirmed')
+        this.doughnutChartData.push(countryData.confirmed);      
+      if (caseType == 'active') 
+        this.doughnutChartData.push(countryData.active);
+      if (caseType == 'recovered')
+        this.doughnutChartData.push(countryData.recovered);
+      if (caseType == 'deaths')
+        this.doughnutChartData.push(countryData.deaths);
+
+      this.doughnutChartLabels.push(countryData.country);
+
+      if (countryData.confirmed > 10000) {
+        if(caseType == 'confirmed') {
+          this.barChartData[0].data.push(countryData.confirmed);
+          this.barChartData[0].label = 'Confirmed cases: ';
+        }
+        if (caseType == 'active'){
+          this.barChartData[0].data.push(countryData.active);
+          this.barChartData[0].label = 'Active cases: ';
+        }
+        if (caseType == 'recovered') {
+          this.barChartData[0].data.push(countryData.recovered);
+          this.barChartData[0].label = 'Recovered cases: ';
+        }
+        if (caseType == 'deaths'){
+          this.barChartData[0].data.push(countryData.deaths);
+          this.barChartData[0].label = 'Deaths: ';
+        }
+        this.barChartLabels.push(countryData.country);
+      }
+    })
+  }
+
+  updateChartType(input: HTMLInputElement) {
+    this.doughnutChartData = [];
+    this.barChartData[0].data = [];
+    this.barChartData[0].label = '';
+
+    this.initializeChart(input.value);
   }
 
 }
