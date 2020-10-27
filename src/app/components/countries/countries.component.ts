@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalDataSummary } from 'src/app/models/global-data';
 import { DataServiceService } from 'src/app/services/data-service.service';
+import { DateWiseDataModel } from 'src/app/models/date-wise-data-model';
+import { ChartDataSets, ChartOptions } from "chart.js";
 
 @Component({
   selector: 'app-countries',
@@ -16,9 +18,31 @@ export class CountriesComponent implements OnInit {
   totalActive = 0;
   totalRecovered = 0;
 
+  selectedCountryData : DateWiseDataModel[];
+  dateWiseData;
+  loaded = false;
+
+  public lineChartData: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: "Series A" }
+  ];
+  public lineChartLabels: String[] = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July"
+  ];
+
   constructor(private dataService: DataServiceService) { }
 
   ngOnInit() : void {
+    this.dataService.getDateWiseData().subscribe((result)=>{
+      this.dateWiseData = result;
+      // console.log(result);
+    });
+
     this.dataService.getGlobalData().subscribe((result)=>{
       this.data = result;
 
@@ -29,8 +53,6 @@ export class CountriesComponent implements OnInit {
   }
 
   updateValue(country: string) {
-    // console.log(country);
-
     this.data.forEach(covidData => {
       if(covidData.country == country) {
         this.totalActive = covidData.active;
@@ -39,6 +61,9 @@ export class CountriesComponent implements OnInit {
         this.totalRecovered = covidData.recovered;
       }
     })
+
+    this.selectedCountryData = this.dateWiseData[country];    
+    this.loaded = true;
   }
 
 }

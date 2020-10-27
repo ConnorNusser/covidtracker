@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
           this.barChartData[0].data.push(countryData.confirmed);
           this.barChartData[0].label = 'Confirmed cases: ';
         }
-        if (caseType == 'active'){
+        if (caseType == 'active') {
           this.barChartData[0].data.push(countryData.active);
           this.barChartData[0].label = 'Active cases: ';
         }
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
           this.barChartData[0].data.push(countryData.recovered);
           this.barChartData[0].label = 'Recovered cases: ';
         }
-        if (caseType == 'deaths'){
+        if (caseType == 'deaths') {
           this.barChartData[0].data.push(countryData.deaths);
           this.barChartData[0].label = 'Deaths: ';
         }

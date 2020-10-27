@@ -3,5 +3,5 @@ export interface GlobalDataSummary {
     confirmed ?: number,
     deaths ?: number,
     active ?: number,
-    recovered ?: number,
+    recovered ?: number
 }

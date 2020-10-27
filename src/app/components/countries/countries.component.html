@@ -9,6 +9,32 @@
     </select>
   </div>
 
-  <app-dashboard-card [totalConfirmed]='totalConfirmed' [totalActive]='totalActive' 
-  [totalDeaths]='totalDeaths' [totalRecovered]='totalRecovered'></app-dashboard-card>
+  <app-dashboard-card [totalConfirmed]='totalConfirmed' [totalActive]='totalActive' [totalDeaths]='totalDeaths'
+    [totalRecovered]='totalRecovered'></app-dashboard-card>
+
+  <div class="row" *ngIf="loaded">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>S no.</th>
+            <th>Date</th>
+            <th>Cases</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor='let cs of selectedCountryData; index as i '>
+            <td>{{i+1}}</td>
+            <td>{{cs.date | date}}</td>
+            <td>{{cs.cases}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <p>show chart here</p>
+  </div>
+  </div>
 </div>
