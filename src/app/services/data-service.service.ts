@@ -9,7 +9,7 @@ import { DateWiseDataModel } from '../models/date-wise-data-model';
 })
 export class DataServiceService {
 
-  private covidDataUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/10-16-2020.csv';
+  private covidDataUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/10-26-2020.csv';
   private covidDateWiseData = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv';
   constructor(private http: HttpClient) { }
 
@@ -38,7 +38,7 @@ export class DataServiceService {
             temp.active = countryData.active + temp.active;
             temp.confirmed = countryData.confirmed + temp.confirmed;
             temp.deaths = countryData.deaths + temp.deaths;
-            temp.active = countryData.active + temp.active;
+            temp.recovered = countryData.recovered + temp.recovered;
 
             raw[countryData.country] = temp;
           }
