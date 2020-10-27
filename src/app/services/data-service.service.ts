@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
 import { GlobalDataSummary } from '../models/global-data';
 import { DateWiseDataModel } from '../models/date-wise-data-model';
 
@@ -9,9 +9,24 @@ import { DateWiseDataModel } from '../models/date-wise-data-model';
 })
 export class DataServiceService {
 
-  private covidDataUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/10-26-2020.csv';
+  private baseDataUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/';
+  private covidDataUrl = '';
   private covidDateWiseData = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv';
-  constructor(private http: HttpClient) { }
+
+  private fileExtension = '.csv';
+  public month;
+  public date;
+  public year;
+
+  constructor(private http: HttpClient) {
+    let today = new Date();
+    this.month = today.getMonth() + 1;
+    this.date = today.getDate();
+    this.year = today.getFullYear();
+
+    this.covidDataUrl = this.baseDataUrl + this.getProperDate(this.month) + '-' + this.getProperDate(this.date) + '-' + this.year + this.fileExtension;
+    console.log(this.covidDataUrl);
+   }
 
   getGlobalData() {
     return this.http.get(this.covidDataUrl, {responseType: 'text'}).pipe(
@@ -57,7 +72,17 @@ export class DataServiceService {
         })
         return <GlobalDataSummary[]>Object.values(raw);
       })
-    )
+    , catchError((error: HttpErrorResponse) => {
+      if (error.status == 404) {
+        //fetching data before one day
+        
+        this.date = this.date - 1;
+        this.covidDataUrl = this.baseDataUrl + this.getProperDate(this.month) + '-' + this.getProperDate(this.date) + '-' + this.year + this.fileExtension;
+        console.log(this.covidDataUrl);
+        return this.getGlobalData();
+
+      }
+    }))
   }
 
   getDateWiseData() {
@@ -89,5 +114,12 @@ export class DataServiceService {
       })
       )
       
+  }
+
+  getProperDate(date: Number){
+    if (date < 10){
+      return '0' + date;
+    }
+    return date;
   }
 }
