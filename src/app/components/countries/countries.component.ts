@@ -23,24 +23,22 @@ export class CountriesComponent implements OnInit {
   loaded = false;
 
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: "Series A" }
+    {data: [], label: 'Cases '}
   ];
-  public lineChartLabels: String[] = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July"
-  ];
+  public lineChartLabels = [];
+
+  public lineChartOptions: ChartOptions & { annotation: any } = {
+    responsive: true
+  };
+  public lineChartLegend = true;
+  public lineChartType = "line";
 
   constructor(private dataService: DataServiceService) { }
 
   ngOnInit() : void {
     this.dataService.getDateWiseData().subscribe((result)=>{
       this.dateWiseData = result;
-      // console.log(result);
+      this.updateChart();
     });
 
     this.dataService.getGlobalData().subscribe((result)=>{
@@ -50,6 +48,18 @@ export class CountriesComponent implements OnInit {
         this.countries.push(covidData.country);
       })
     })
+  }
+
+  updateChart() {
+    this.lineChartData[0].data = [];
+    this.lineChartLabels = [];
+
+    this.selectedCountryData.forEach(countryData => {
+      if (countryData.cases>10000){
+        this.lineChartData[0].data.push(countryData.cases);
+        this.lineChartLabels.push(countryData.date.getMonth().toLocaleString() + "/" + countryData.date.getFullYear().toPrecision());
+      }
+    })    
   }
 
   updateValue(country: string) {
@@ -62,7 +72,8 @@ export class CountriesComponent implements OnInit {
       }
     })
 
-    this.selectedCountryData = this.dateWiseData[country];    
+    this.selectedCountryData = this.dateWiseData[country];
+    this.updateChart();
     this.loaded = true;
   }
 

@@ -3,7 +3,7 @@
   <h1 class="display-4">COVID-19 Tracker Country-wise</h1>
   <hr class="my-4">
   <div class="form-group col-lg-5 mx-auto">
-    <label for="country">Select country</label>
+    <label for="country">Please select a country to view data</label>
     <select name="" class="form-control" id="country" #input (change)='updateValue(input.value)'>
       <option value="{{country}}" *ngFor='let country of countries'>{{country}}</option>
     </select>
@@ -34,7 +34,9 @@
     </div>
 
     <div class="col">
-      <p>show chart here</p>
-  </div>
+      <canvas baseChart width="400" height="200" [datasets]="lineChartData" [labels]="lineChartLabels"
+        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType">
+      </canvas>
+    </div>
   </div>
 </div>
