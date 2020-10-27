@@ -3,26 +3,22 @@
   <h1 class="display-4">COVID-19 Tracker</h1>
   <hr>
 
-  <app-dashboard-card [totalConfirmed]='totalConfirmed' [totalActive]='totalActive' 
-  [totalDeaths]='totalDeaths' [totalRecovered]='totalRecovered'></app-dashboard-card>
-<hr>
-<h3>
-  Country-wise data
-</h3>
-<div class="item">
-  <canvas *ngIf = "loaded" width="400" height="100" baseChart chartType="doughnut" [data]="doughnutChartData"
-    [labels]="doughnutChartLabels" [options]="chartOptions" [legend]="false">
-  </canvas>
-</div>
-<hr>
-<div>
-  <div style="display: block">
-    <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [legend]="barChartLegend"
-          [chartType]="barChartType"></canvas>
+  <app-dashboard-card [totalConfirmed]='totalConfirmed' [totalActive]='totalActive' [totalDeaths]='totalDeaths'
+    [totalRecovered]='totalRecovered'></app-dashboard-card>
+  <hr>
+  <h3>
+    Country-wise data
+  </h3>
+  <div class="item">
+    <canvas *ngIf="loaded" width="400" height="100" baseChart chartType="doughnut" [data]="doughnutChartData"
+      [labels]="doughnutChartLabels" [options]="chartOptions" [legend]="false">
+    </canvas>
   </div>
-</div>
+  <hr>
+  <div>
+    <div style="display: block">
+      <canvas *ngIf="loaded" baseChart [datasets]="barChartData" [labels]="doughnutChartLabels"
+        [options]="barChartOptions" [legend]="false" [chartType]="barChartType"></canvas>
+    </div>
+  </div>
 </div>
