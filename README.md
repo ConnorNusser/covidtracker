@@ -1,4 +1,5 @@
 # Covid-19 Tracker
+Please access it here - `https://amylokh.github.io/covid19-tracker/`
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.5.
 
