@@ -9,6 +9,9 @@ import { CountriesComponent } from './components/countries/countries.component';
 import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AboutAuthorComponent } from './components/about-author/about-author.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -16,13 +19,16 @@ import { ChartsModule } from 'ng2-charts';
     NavbarComponent,
     HomeComponent,
     CountriesComponent,
-    DashboardCardComponent
+    DashboardCardComponent,
+    AboutAuthorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
