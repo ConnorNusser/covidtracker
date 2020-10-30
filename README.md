@@ -17,6 +17,9 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 For prod build run - `ng build --prod --base-href https://amylokh.github.io/covid19-tracker/`
 
+## Deployment
+Run `npm run deploy`
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
