@@ -12,6 +12,7 @@ import { ChartsModule } from 'ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AboutAuthorComponent } from './components/about-author/about-author.component';
 import { MaterialModule } from './material.module';
+import { MerchstoreComponent } from './components/merchstorecomponent/merchstore/merchstore.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MaterialModule } from './material.module';
     HomeComponent,
     CountriesComponent,
     DashboardCardComponent,
-    AboutAuthorComponent
+    AboutAuthorComponent,
+    MerchstoreComponent
   ],
   imports: [
     BrowserModule,
