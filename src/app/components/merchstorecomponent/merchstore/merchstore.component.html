@@ -10,16 +10,35 @@
         <b>cmn1998</b> 
       </div>
       <div class="caption">
-        Yo whats up my guys
+        {{box.value}}
       </div>
     </div>
   </mat-card>
+  <div *ngFor="let merch of merchItems" class="main-div">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{merch.value}}</mat-card-title>
+        <mat-card-subtitle>Full Stack Engineer</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://media.licdn.com/dms/image/C4E03AQEq7Ne--HkqGA/profile-displayphoto-shrink_800_800/0/1593636145643?e=2147483647&v=beta&t=v4c6FFzj2ZIh0iqBFol_cOMe536Uc-qC1QiCBqAXAiw" alt="Photo of Connor McLemore">
+      <div>
+        <div class="username">
+          <b>cmn1998</b> 
+        </div>
+        <div class="caption">
+          {{box.value}}
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
 
 
 </div>
 <div style="text-align:center; margin-top: 20px;">
-  <input type="text">
+  <input #box (keyup)="0">
+  <p>{{box.value}}</p>
   <div style="margin-block: 10px;">
-  <button (click)="onclick()"class="button-primary" role="button">Submit</button>
-  <button class="button-primary" role="button">Reset</button>
+  <button (click)="onclick(box.value)"class="button-primary" role="button">Find Merch</button>
+  <button class="button-primary" (click)= "box.value = ''" button>Reset</button>
 </div>
